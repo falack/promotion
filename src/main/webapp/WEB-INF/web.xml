@@ -1,39 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://java.sun.com/xml/ns/javaee" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <servlet>
+    <servlet-name>EndpointsServlet</servlet-name>
+    <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
+    <init-param>
+      <param-name>services</param-name>
+      <param-value>com.falack.connecting.Greetings</param-value>
+    </init-param>
+    <init-param>
+      <param-name>restricted</param-name>
+      <param-value>false</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EndpointsServlet</servlet-name>
+    <url-pattern>/_ah/api/*</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>This page describes the purpose of the whole project</description>
+    <display-name>PurposeServlet</display-name>
+    <servlet-name>PurposeServlet</servlet-name>
+    <servlet-class>com.falack.promotion.basicactions.PurposeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PurposeServlet</servlet-name>
+    <url-pattern>/purpose</url-pattern>
+  </servlet-mapping>
 
-    <servlet>
-        <!-- Uncomment to use Endpoints Frameworks v1.0 and comment the v2.0 section -->
-        <!--
-        <servlet-name>SystemServiceServlet</servlet-name>
-        <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
-        -->
-        <!-- End of Endpoints Frameworks v1.0 -->
-        <!-- Endpoints Frameworks v2.0 -->
-        <servlet-name>EndpointsServlet</servlet-name>
-        <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
-        <!-- End of Endpoints Frameworks v2.0 -->
-        <init-param>
-            <param-name>services</param-name>
-            <param-value>com.falack.connecting.Greetings</param-value>
-        </init-param>
-        <init-param>
-            <param-name>restricted</param-name>
-            <param-value>false</param-value>
-        </init-param>
-    </servlet>
-    <servlet-mapping>
-        <!-- Uncomment to use Endpoints Frameworks v1.0 and comment the v2.0 section -->
-        <!--
-        <servlet-name>SystemServiceServlet</servlet-name>
-        <url-pattern>/_ah/spi/*</url-pattern>
-        -->
-        <!-- End of Endpoints Frameworks v1.0 -->
-        <!-- Endpoints Frameworks v2.0 -->
-        <servlet-name>EndpointsServlet</servlet-name>
-        <url-pattern>/_ah/api/*</url-pattern>
-        <!-- End of Endpoints Frameworks v2.0 -->
-    </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
+  <!-- [START config] -->
+
+   <context-param>
+       <param-name>sql.urlRemote</param-name>
+       <param-value>jdbc:mysql://google/${sql.dbName}?cloudSqlInstance=${sql.instanceName}&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;user=${sql.userName}&amp;password=${sql.password}</param-value>
+   </context-param>
+  
+  <!-- [END config] -->
+   
+    
 </web-app>

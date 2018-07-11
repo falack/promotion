@@ -9,12 +9,62 @@
 	<name>falack-promotion</name>
 
 	<properties>
+	    <!-- [START config] -->
+	    <falack.storageType>datastore</falack.storageType>   <!-- datastore or cloudsql -->
+	
+	    <sql.dbName>falackdb</sql.dbName>                        <!-- A reasonable default -->
+	<!-- Instance Connection Name - project:region:dbName -->
+	<!-- -Dsql.instanceName=localhost to use a local MySQL server -->
+	    <sql.instanceName>DATABASE-connectionName-HERE</sql.instanceName> <!-- See `gcloud sql instances describe [instanceName]` -->
+	    <sql.userName>admin</sql.userName>                         <!-- A reasonable default -->
+	    <sql.password>MYSQL-ROOT-PASSWORD-HERE</sql.password> <!-- -Dsql.password=myRootPassword1234 -->
+	    <!-- [END config] -->
+	    
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+  <!-- THINGS ONLY USED WHEN RUN LOCALLY -->
+  <profiles>
+    <profile>
+      <id>local</id>
+      <dependencies>
+        <dependency>
+          <groupId>com.google.cloud.sql</groupId>
+          <artifactId>mysql-socket-factory</artifactId>
+          <version>1.0.2</version>
+        </dependency>
+        <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>5.1.40</version>  <!-- v5.x.x is Java 7, v6.x.x is Java 8 -->
+        </dependency>
+        <dependency>
+          <groupId>com.google.api-client</groupId>
+          <artifactId>google-api-client-appengine</artifactId>
+          <version>1.21.0</version>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+
 	<dependencies>
+        <dependency>
+          <groupId>com.google.cloud.sql</groupId>
+          <artifactId>mysql-socket-factory</artifactId>
+          <version>1.0.2</version>
+        </dependency>
+        <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>5.1.40</version>  <!-- v5.x.x is Java 7, v6.x.x is Java 8 -->
+        </dependency>
+        <dependency>
+          <groupId>com.google.api-client</groupId>
+          <artifactId>google-api-client-appengine</artifactId>
+          <version>1.21.0</version>
+        </dependency>
 		<!-- Compile/runtime dependencies -->
 		<!-- Uncomment to use Endpoints Frameworks v1.0 and comment the v2.0 section -->
 		<!--<dependency> <groupId>com.google.appengine</groupId> <artifactId>appengine-endpoints</artifactId> 
